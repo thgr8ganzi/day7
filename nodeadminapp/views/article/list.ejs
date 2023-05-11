@@ -153,8 +153,8 @@
                                     <thead>
                                     <tr>
                                         <th width="10%">글순번</th>
-                                        <th width="10%">제목</th>
-                                        <th width="20%">조회수</th>
+                                        <th width="20%">제목</th>
+                                        <th width="10%">조회수</th>
                                         <th width="20%">아이피주소</th>
                                         <th width="10%">게시여부</th>
                                         <th width="10%">등록일</th>
@@ -176,7 +176,7 @@
                                         <% for(let i = 0; i < articles.length; i++){%>
                                         <tr>
                                                 <td><a href="#"><%=articles[i].aid%></a></td>
-                                                <td><a href="/article/modify/1"><%=articles[i].title%></a></td>
+                                                <td><a href="/article/modify/<%=articles[i].aid%>"><%=articles[i].title%></a></td>
                                                 <td><%=articles[i].view_cnt%></td>
                                                 <td><%=articles[i].ipadress%></td>
                                                 <td><%=articles[i].display_yn%></td>

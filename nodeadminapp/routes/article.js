@@ -59,11 +59,6 @@ router.post('/list', async (req, res) => {
 router.get('/create', async (req, res) => {
     await res.render('article/create')
 });
-// 사용자가 입력한 게시글 등록 데이터 처리 요청 및 응답 라우팅 메소드
-
-router.post('/c', (req, res) => {
-
-});
 // 단일 게시글 정보 확인 및 수정 웹 페이지의 요청/응답 라우팅 메소드
 
 router.get('/modify/:aid', async (req, res) => {
@@ -80,15 +75,59 @@ router.get('/modify/:aid', async (req, res) => {
     }
     await res.render('article/modify',{article})
 });
+// 사용자가 입력한 게시글 등록 데이터 처리 요청 및 응답 라우팅 메소드
+router.post('/modify/:aid', async (req, res) => {
+//    사용자가 입력한 게시글 정보를 추출
+    let aid = req.params.aid;
+
+//     form 태그내 hidden 태그를 이용해 사용자가 수정한 게시글의 aid 정보를 전달받는다.
+//     let aid = req.body.aid;
+
+//    사용자가 입력한 게시글 정보를 추출
+    let title = req.body.title;
+    let content = req.body.content;
+    let display_yn = req.body.display_yn;
+
+//     db에 게시글 정보를 수정한다.
+    let article = {
+        title,
+        content,
+        display_yn
+    }
+//     게시글 목록 페이지로 이동
+    res.redirect('/article/list')
+});
 
 // 사용자가 수정한 게시글 정보처리 요청 및 응답 라우팅 메소드 정의
-router.post('/e', (req, res) => {
+router.post('/create', async (req, res) => {
+    let title = req.body.title;
+    let content = req.body.content;
+    let display_yn = req.body.display_yn;
 
+//     모든 RDMS 는 테이블에 데이터를 저장하면 실제 저장된 해당 데이터를 백엔드 호출 메소드로 반환해준다
+    let article = {
+            aid : '1',
+            title : '게시글 제목입니다.',
+            content : '게시글 내용입니다.',
+            ipadress : '111.111.111.111',
+            view_cnt : 1,
+            display_yn : "N",
+            regist_date : Date.now(),
+            regist_user : '이지수',
+        }
+
+
+    res.redirect('/article/list')
 });
 
 // 선택 게시글 삭제처리 요청 및 라우팅 메소드 정의
-router.get('/g', (req, res) => {
+router.get('/delete', async (req, res) => {
+    let aid = req.query.aid;
 
+    // DB 에서 해당 게시글 정보를 삭제한다.
+
+    // 게시글 목록 페이지로 이동
+    res.redirect('/article/list')
 });
 
 

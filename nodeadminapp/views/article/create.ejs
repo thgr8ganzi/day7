@@ -107,6 +107,7 @@
 
         <!--우측 콘텐츠 영역 -->
         <div class="wrapper wrapper-content">
+            <form action="/article/create" method="post" id="articleForm">
             <div class="ibox-content m-b-sm border-bottom">
 
 <!--                제목-->
@@ -134,7 +135,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label">게시여부</label>
-                            <select class="form-control" id="">
+                            <select class="form-control" id="display_yn" name="display_yn">
                                 <option value="Y">게시함</option>
                                 <option value="N">게시안함</option>
                             </select>
@@ -144,11 +145,12 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary">저장</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
                     <a href="/article/list" class="btn btn-info">목록</a>
                 </div>
 
             </div>
+            </form>
         </div>
 
         <!--우측 하단 풋터 영역-->
@@ -181,7 +183,39 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
+    // 페이지 로드시 실행
+    $(document).ready(function () {
+        $('#title').focus();
+    });
 
+
+    // 입력 요소들의 유효성검사를 실시후 action 페이지로 전송
+    $('#articleForm').submit(function (e) {
+        e.preventDefault();
+
+        var title = $('#title').val();
+        var content = $('#content').val();
+        var display_yn = $('#display_yn').val();
+
+        if (title == '') {
+            alert('제목을 입력하세요.');
+            $('#title').focus();
+            return false;
+        }
+
+        if (content == '') {
+            alert('내용을 입력하세요.');
+            $('#content').focus();
+            return false;
+        }
+
+        if (display_yn == '') {
+            alert('게시여부를 선택하세요.');
+            $('#display_yn').focus();
+            return false;
+        }
+
+    });
 </script>
 
 </body>
