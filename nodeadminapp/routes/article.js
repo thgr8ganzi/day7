@@ -2,9 +2,16 @@
 // localhost:3000/article
 const express = require('express');
 const router = express.Router();
+const {checkParams, checkQueryKey} = require('./middlewear');
+
+// 라우터 미들웨어 호출
+router.use((req, res, next) => {
+    console.log('article 미들웨어 호출', Date.now())
+    next();
+})
 
 // 게실글 정보조회 및 조회결과 웹페이지 요청 및 응답처리 라우팅 메소드
-router.get('/list', async (req, res) => {
+router.get('/list',checkQueryKey, async (req, res) => {
     let articles = [];
     console.log(articles.length)
     await res.render('article/list',{articles})
