@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const sequelize = require('./models/index').sequelize; // 시퀄라이즈 ORM 객체
 
 // ejs 레이아웃 모듈 추가
 const expressLayouts = require('express-ejs-layouts');
@@ -10,8 +11,10 @@ const expressLayouts = require('express-ejs-layouts');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const articleRouter = require('./routes/article');
+const memberAPIRouter = require('./routes/memberAPI');
 
 var app = express();
+sequelize.sync(); // DB 연결
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,6 +51,7 @@ app.use('/user/:id',(req, res, next) => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/article', articleRouter);
+app.use('/api/members', memberAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
