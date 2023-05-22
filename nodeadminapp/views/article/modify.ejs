@@ -21,7 +21,7 @@
         </div>
 
         <!--우측 콘텐츠 영역 -->
-        <form action="/article/modify/<%=article.aid%>" method="post" id="articlesForm">
+        <form action="/article/modify/<%=article.article_id%>" method="post" id="articlesForm">
         <div class="wrapper wrapper-content">
             <div class="ibox-content m-b-sm border-bottom">
 
@@ -40,7 +40,7 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label class="control-label">글내용</label>
-                            <textarea class="form-control" rows="10" cols="5" id="content" name="content"><%=article.content%></textarea>
+                            <textarea class="form-control" rows="10" cols="5" id="content" name="content"><%=article.contents%></textarea>
                         </div>
                     </div>
                 </div>
@@ -51,8 +51,8 @@
                         <div class="form-group">
                             <label class="control-label">게시여부</label>
                             <select class="form-control" id="" name="display_yn">
-                                <option value="Y" <% if(article.display_yn == "Y"){%>selected<%}%>>게시함</option>
-                                <option value="N" <% if(article.display_yn == "N"){%>selected<%}%>>게시안함</option>
+                                <option value="1" <% if(article.is_display_code == "1"){%>selected<%}%>>게시함</option>
+                                <option value="0" <% if(article.is_display_code == "0"){%>selected<%}%>>게시안함</option>
                             </select>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <a href="/article/list" class="btn btn-info">목록</a>
                     <button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
                 </div>
-                <input type="hidden" id="aid" name="aid" value="<%=article.aid%>">
+                <input type="hidden" id="aid" name="aid" value="<%=article.article_id%>">
 
             </div>
         </div>
