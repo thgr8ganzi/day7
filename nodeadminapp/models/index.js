@@ -3,7 +3,8 @@ const Sequelize = require('sequelize');
 //개발모드 환경설정
 const env = process.env.NODE_ENV || 'development';
 //DB연결 환경설정정보 변경처리//관련정보 수정
-const config = require(path.join(__dirname,'..','config','config.json'))[env];
+// const config = require(path.join(__dirname,'..','config','config.json'))[env];
+const config = require('../config/config.js')[env];
 //데이터 베이스 객체
 const db= {};
 //DB연결정보로 시퀄라이즈 ORM 객체 생성
@@ -15,5 +16,6 @@ db.Sequelize = Sequelize; //Sequelize팩키지에서 제공하는 각종 데이�
 //회원모델 모듈파일 참조하고 db속성정의하기
 db.Member = require('./member.js')(sequelize,Sequelize);
 db.Article = require('./article.js')(sequelize,Sequelize);
+db.Admin = require('./admin.js')(sequelize,Sequelize);
 //db객체 외부로 노출하기
 module.exports = db;

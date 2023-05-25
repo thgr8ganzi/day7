@@ -12,6 +12,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const articleRouter = require('./routes/article');
 const memberAPIRouter = require('./routes/memberAPI');
+const adminRouter = require('./routes/admin');
+require('dotenv').config(); // .env 파일의 환경변수를 process.env 객체에 추가
 
 var app = express();
 sequelize.sync(); // DB 연결
@@ -52,6 +54,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/article', articleRouter);
 app.use('/api/members', memberAPIRouter);
+app.use('/admin', adminRouter); // 관리자 라우터 추가
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
