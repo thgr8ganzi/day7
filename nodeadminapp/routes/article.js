@@ -8,6 +8,7 @@ const sequelize = db.sequelize
 const moment = require('moment');
 const { Op } = require("sequelize");
 const {QueryTypes} = require('sequelize');
+const {isLoggedIn} = require('./authorizeMiddleware');
 // 라우터 미들웨어 호출
 router.use((req, res, next) => {
     console.log('article 미들웨어 호출', Date.now())
@@ -15,7 +16,7 @@ router.use((req, res, next) => {
 })
 
 // 게실글 정보조회 및 조회결과 웹페이지 요청 및 응답처리 라우팅 메소드
-router.get('/list', async (req, res) => {
+router.get('/list', isLoggedIn, async (req, res) => {
     const articles = await db.Article.findAll({
         attributes: ['article_id','title','reg_date', 'contents', 'view_count', 'ip_address','is_display_code','reg_member_id'],
         where:{article_id: {[Op.gt]:0} },
@@ -50,7 +51,7 @@ router.post('/list', async (req, res) => {
 
 
 // 게시글 등록 웹페이지 요청/응답 처리 라우팅 메소드
-router.get('/create', async (req, res) => {
+router.get('/create', isLoggedIn, async (req, res) => {
     await res.render('article/create')
 });
 // 단일 게시글 정보 확인 및 수정 웹 페이지의 요청/응답 라우팅 메소드

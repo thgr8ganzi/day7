@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const sequelize = require('./models/index').sequelize; // 시퀄라이즈 ORM 객체
+const session = require('express-session'); // 세션 모듈 추가
 
 // ejs 레이아웃 모듈 추가
 const expressLayouts = require('express-ejs-layouts');
@@ -35,6 +36,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({ // 세션 설정
+    secret: process.env.COOKIE_SECRET, // .env 파일의 환경변수를 사용
+    resave: false, // 세션을 항상 저장할 지 여부
+    saveUninitialized: true, // 사용자가 로그인후 서버 리소스를 요청할떄마다 세션 타임아웃값이 자동증가한다.
+    cookie: { // 세션 쿠키 설정
+        httpOnly: true, // 발급된 쿠키가 http 환경 에서도 사용되게 설정
+        secure: false, // 보안 쿠키 생성 옵션(쿠키안에 값을 난독화 또는 암호화처리 여부)
+        maxAge:1000 * 60 * 30 // 쿠키 유효기간 30분
+    },
+}));
 
 // 어플리케이션 미들웨어 호출1
 app.use((req, res, next) => {
